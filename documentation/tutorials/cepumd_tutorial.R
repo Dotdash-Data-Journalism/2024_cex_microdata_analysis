@@ -45,7 +45,7 @@ integ22_hg <- ce_hg(
   hg_zip_path = file.path(ce_data_dir, "stubs.zip")
 )
 
-ce_prepdata(
+ce_microdata_prep <- ce_prepdata(
   2022,
   "integrated",
   integ22_hg,
@@ -53,7 +53,9 @@ ce_prepdata(
   dia_zp = file.path(ce_data_dir, "diary22.zip"),
   int_zp = c(file.path(ce_data_dir, "intrvw22.zip"),
              file.path(ce_data_dir, "intrvw21.zip"))
-) %>% 
+) 
+
+ce_microdata_prep %>% 
   ce_mean()
 
 
