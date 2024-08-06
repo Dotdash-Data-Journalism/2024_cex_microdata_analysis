@@ -221,3 +221,35 @@ ggplot(ce_gas_prep, aes(x = cost)) +
   labs(title = "Histogram of Interview Survey Only Gasoline, Other Fuels, and Motor Oil Expenditures",
        subtitle = "2022. Red line is median and blue is weighted mean.")
 
+## Interview survey vehicle outlays for consumer units without purchases
+# 
+# vp_i_uccs <- ce_uccs(interview22_hg, ucc_group = "VEHPURCH")
+vp_i_uccs <- c("450110", "450210", "460110", "460901")
+
+ce_vp_prep <- ce_prepdata(
+  2022,
+  "interview",
+  interview22_hg,
+  uccs = vp_i_uccs,
+  int_zp = c(file.path(ce_data_dir, "intrvw22.zip"),
+             file.path(ce_data_dir, "intrvw21.zip"))
+)
+
+
+ce_vp_prep %>% 
+  filter(cost != 0) %>% 
+  ce_mean()
+
+ce_vp_prep %>% 
+  filter(cost != 0) %>% 
+  ce_quantiles(probs = 0.5)
+
+ce_vp_prep %>% 
+  filter(cost != 0) %>% 
+  pull(cost) %>% 
+  mean()
+
+ce_vp_prep %>% 
+  filter(cost != 0) %>% 
+  pull(cost) %>% 
+  median()
